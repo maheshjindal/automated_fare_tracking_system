@@ -1,10 +1,8 @@
-package com.pirates.frts.service;
-
+package com.pirates.frts.util;
 
 import com.pirates.frts.error.FirebaseException;
 import com.pirates.frts.error.JacksonUtilityException;
 import com.pirates.frts.model.FirebaseResponse;
-import com.pirates.frts.util.JacksonUtility;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -27,7 +25,7 @@ public class Firebase {
 	
 	protected static final Logger LOGGER = Logger.getRootLogger();
 	
-	public static final String FIREBASE_API_JSON_EXTENSION  = ".json";
+	public static final String FIREBASE_API_JSON_EXTENSION = ".json";
 	
 
 	
@@ -42,8 +40,7 @@ public class Firebase {
 	private String secureToken = null;
 	private List<NameValuePair> query;
 	private Boolean useJsonExt = true;
-
-	public Firebase(String baseUrl ) throws FirebaseException {
+	public Firebase( String baseUrl ) throws FirebaseException {
 
 		if( baseUrl == null || baseUrl.trim().isEmpty() ) {
 			String msg = "baseUrl cannot be null or empty; was: '" + baseUrl + "'";
@@ -224,6 +221,7 @@ public class Firebase {
 		
 		// make the request
 		String url = this.buildFullUrlFromRelativePath( path );
+//		url = url+"access_token="+accessToken;
 		HttpPut request = new HttpPut( url );
 		request.setEntity( this.buildEntityFromDataMap( data ) );
 		HttpResponse httpResponse = this.makeRequest( request );
@@ -245,7 +243,7 @@ public class Firebase {
 	 * @throws {@link FirebaseException}
 	 */
 	public FirebaseResponse put( String jsonData ) throws FirebaseException, UnsupportedEncodingException {
-		return this.put( null, jsonData );
+		return this.put(null,jsonData);
 	}
 
 	/**

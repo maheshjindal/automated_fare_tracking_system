@@ -1,13 +1,16 @@
 package com.pirates.frts.demo;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.pirates.frts.error.FirebaseException;
 import com.pirates.frts.error.JacksonUtilityException;
 import com.pirates.frts.model.FirebaseResponse;
-import com.pirates.frts.service.Firebase;
+import com.pirates.frts.util.Firebase;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -18,12 +21,27 @@ public class Demo {
 
 		
 		// get the base-url (ie: 'http://gamma.firebase.com/username')
-		String firebase_baseUrl = null;
+		String firebase_baseUrl = "https://frts-63acc.firebaseio.com/user";
+
+
 
 		// get the api-key (ie: 'tR7u9Sqt39qQauLzXmRycXag18Z2')
-		String firebase_apiKey = null;
+//		String firebase_apiKey = null;
 
-		for( String s : args ) {
+		FileInputStream serviceAccount = new FileInputStream("/Users/maheshjindal/Documents/frts/src/main/resources/static/frts-63acc-firebase-adminsdk-x16ek-ef89532dd2.json");
+		GoogleCredential googleCred = GoogleCredential.fromStream(serviceAccount);
+		GoogleCredential scoped = googleCred.createScoped(
+				Arrays.asList(
+						"https://www.googleapis.com/auth/firebase.database",
+						"https://www.googleapis.com/auth/userinfo.email"
+				)
+		);
+
+// Use the Google credential to generate an access token
+		scoped.refreshToken();
+		String token = scoped.getAccessToken();
+
+		/*for( String s : args ) {
 
 			if( s == null || s.trim().isEmpty() ) continue;
 			String[] split = s.trim().split( "=" );
@@ -36,14 +54,14 @@ public class Demo {
 			}
 
 
-		}
+		}*/
 		if( firebase_baseUrl == null || firebase_baseUrl.trim().isEmpty() ) {
 			throw new IllegalArgumentException( "Program-argument 'baseUrl' not found but required" );
 		}
 
 
 		// create the firebase
-		Firebase firebase = new Firebase( firebase_baseUrl );
+		Firebase firebase = new Firebase( firebase_baseUrl,token );
 
 
 		// "DELETE" (the fb4jDemo-root)
@@ -53,7 +71,7 @@ public class Demo {
 		// "PUT" (test-map into the fb4jDemo-root)
 		Map<String, Object> dataMap = new LinkedHashMap<String, Object>();
 		dataMap.put( "PUT-root", "This was PUT into the fb4jDemo-root" );
-		response = firebase.put( dataMap );
+		response = firebase.put( dataMap);
 		System.out.println( "\n\nResult of PUT (for the test-PUT to fb4jDemo-root):\n" + response );
 		System.out.println("\n");
 
@@ -76,7 +94,7 @@ public class Demo {
 		System.out.println("\n");
 
 
-		// "GET" (the test-PUT)
+/*		// "GET" (the test-PUT)
 		response = firebase.get( "test-PUT" );
 		System.out.println( "\n\nResult of GET (for the test-PUT):\n" + response );
 		System.out.println("\n");
@@ -116,7 +134,7 @@ public class Demo {
 		} else {
 			System.out.println("\n\nResult of Signing Up:\n failed, because no API Key was provided.");
 			System.out.println("\n");
-		}
+		}*/
 
 	}
 	
