@@ -20,6 +20,7 @@ import com.pirates.frts.domain.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,8 +76,14 @@ public class TravelController {
     }
 
     @PostMapping("/create/travelHistory")
-    public ResponseEntity<String> createNewTravelHistory(@RequestBody TravelHistory request) throws IOException {
-        userService.createTableByJson(TableType.TRAVEL_HISTORY,objectMapper.writeValueAsString(request),request.getTravelId());
+    public ResponseEntity<String> createNewTravelHistory(@RequestBody TravelHistory request) throws Exception {
+        HashMap<String,String> response = userService.isAuthorizedToTravel(request,request.getUserId());
+        if(response.get("isAllowed").equalsIgnoreCase("true")){
+            userService.createTableByJson(TableType.TRAVEL_HISTORY,objectMapper.writeValueAsString(request),request.getTravelId());
+            userService.updateCardBalance(request.getUserId(),Double.parseDouble(response.get("routeFare")));
+        }else{
+
+        }
         return new ResponseEntity<String>(HttpStatus.OK);
     }
     @GetMapping("/get/travelHistory")

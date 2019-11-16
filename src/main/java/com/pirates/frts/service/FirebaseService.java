@@ -7,6 +7,8 @@ import com.pirates.frts.model.FirebaseResponse;
 import com.pirates.frts.util.Firebase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -18,6 +20,7 @@ public class FirebaseService {
     private String firebase_baseUrl = "https://frts-63acc.firebaseio.com";
     protected static final Logger LOGGER = LoggerFactory.getLogger(FirebaseService.class);
 
+    ResourceLoader resourceLoader;
 
     public Firebase getInstanceforTable(String tableName,String primaryId) throws Exception{
         Firebase firebase = null;

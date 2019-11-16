@@ -3,7 +3,7 @@ package com.pirates.frts.domain;
 public class CardInformation {
     private String userId;
     private String rfId;
-    private String cardLimit;
+    private double cardLimit;
     private double transactionAmount;
     private double balance;
 
@@ -31,7 +31,7 @@ public class CardInformation {
         this.rfId = rfId;
     }
 
-    public void setCardLimit(String cardLimit) {
+    public void setCardLimit(double cardLimit) {
         this.cardLimit = cardLimit;
     }
 
@@ -43,7 +43,7 @@ public class CardInformation {
         return rfId;
     }
 
-    public String getCardLimit() {
+    public double getCardLimit() {
         return cardLimit;
     }
 }

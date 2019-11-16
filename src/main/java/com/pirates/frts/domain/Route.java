@@ -1,8 +1,8 @@
 package com.pirates.frts.domain;
 
 public class Route {
-    private String originLocationId;
-    private String destinationOriginId;
+    private String originId;
+    private String destinationId;
     private double distance;
     private double fare;
     private String routeId;
@@ -17,11 +17,11 @@ public class Route {
     }
 
     public void setOriginLocationId(String originLocationId) {
-        this.originLocationId = originLocationId;
+        this.originId = originLocationId;
     }
 
     public void setDestinationOriginId(String destinationOriginId) {
-        this.destinationOriginId = destinationOriginId;
+        this.destinationId = destinationOriginId;
     }
 
     public void setDistance(double distance) {
@@ -38,11 +38,11 @@ public class Route {
 
 
     public String getOriginLocationId() {
-        return originLocationId;
+        return originId;
     }
 
     public String getDestinationOriginId() {
-        return destinationOriginId;
+        return destinationId;
     }
 
     public double getDistance() {

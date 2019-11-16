@@ -1,11 +1,11 @@
 package com.pirates.frts.service;
 
 
+import com.pirates.frts.domain.CardInformation;
+import com.pirates.frts.domain.Route;
 import com.pirates.frts.domain.TravelHistory;
 import com.pirates.frts.model.FirebaseResponse;
-import com.pirates.frts.util.Firebase;
 import com.pirates.frts.util.TableType;
-import com.pirates.frts.util.TravelHistoryMapper;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
@@ -38,11 +38,36 @@ public class UserService {
                 FirebaseResponse routeResponse = crudService.getTable(TableType.ROUTE,routeId);
                 Map<String,Object> tempResponse = routeResponse.getBody();
                 tempResponse.put("userId",userId);
+                tempResponse.put("travelId",travelId);
                 tempResponse.put("date",travelSet.get(travelId).getDate());
                 responseList.add(tempResponse);
             }
         }
         return responseList;
+    }
+    public HashMap<String,String> isAuthorizedToTravel(TravelHistory history,String userId) throws Exception{
+        HashMap<String,String> responseMap = new HashMap<>();
+        responseMap.put("isAllowed","false");
+        FirebaseResponse response = crudService.getTable(TableType.CARD_INFORMATION,null);
+        Map<String,Object> responseBody = response.getBody();
+        LOGGER.info(responseBody.toString());
+        Map<String,CardInformation> cardInfo = objectMapper.readValue(objectMapper.writeValueAsString(responseBody),new TypeReference<Map<String,CardInformation>>(){});
+
+        for (String rfId:cardInfo.keySet()) {
+            if(cardInfo.get(rfId).getUserId().equalsIgnoreCase(userId)){
+                String userRouteId = history.getRouteId();
+                FirebaseResponse routeResponse = crudService.getTable(TableType.ROUTE,userRouteId);
+                Map<String,Object> routeResponseBody = routeResponse.getBody();
+                Route route = objectMapper.readValue(objectMapper.writeValueAsString(routeResponseBody),Route.class);
+                if(route.getFare() <= cardInfo.get(rfId).getBalance()){
+                    responseMap.put("isAllowed","true");
+                    responseMap.put("routeFare",""+route.getFare());
+                    responseMap.put("cardLimit",""+cardInfo.get(rfId).getCardLimit());
+                }
+                break;
+            }
+        }
+        return responseMap;
     }
 
     public void createTableByJson(TableType tableType, String jsonString, String primaryKey){
@@ -51,6 +76,22 @@ public class UserService {
 
     public FirebaseResponse fetchTable(TableType tableType, String primaryKey){
         return crudService.getTable(tableType,primaryKey);
+    }
+    public void updateCardBalance(String userId,double routeFare) throws Exception{
+        FirebaseResponse response = crudService.getTable(TableType.CARD_INFORMATION,null);
+        Map<String,Object> responseBody = response.getBody();
+        LOGGER.info(responseBody.toString());
+        Map<String,CardInformation> cardInfo = objectMapper.readValue(objectMapper.writeValueAsString(responseBody),new TypeReference<Map<String,CardInformation>>(){});
+
+        for (String rfId:cardInfo.keySet()) {
+            if(cardInfo.get(rfId).getUserId().equalsIgnoreCase(userId)){
+                CardInformation information = cardInfo.get(rfId);
+                information.setBalance(information.getCardLimit()-routeFare);
+                crudService.createTable(TableType.CARD_INFORMATION,objectMapper.writeValueAsString(information),rfId);
+                break;
+            }
+        }
+
     }
 
 
