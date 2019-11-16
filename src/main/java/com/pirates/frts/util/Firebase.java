@@ -3,6 +3,7 @@ package com.pirates.frts.util;
 import com.pirates.frts.error.FirebaseException;
 import com.pirates.frts.error.JacksonUtilityException;
 import com.pirates.frts.model.FirebaseResponse;
+import com.pirates.frts.service.FirebaseService;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -11,7 +12,8 @@ import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URLEncoder;
@@ -22,8 +24,8 @@ import java.util.Map;
 
 
 public class Firebase {
-	
-	protected static final Logger LOGGER = Logger.getRootLogger();
+
+	protected static final Logger LOGGER = LoggerFactory.getLogger(Firebase.class);
 	
 	public static final String FIREBASE_API_JSON_EXTENSION = ".json";
 
@@ -65,16 +67,6 @@ public class Firebase {
 		query = new ArrayList<NameValuePair>();
 		LOGGER.info( "intialized with base-url: " + this.baseUrl );
 	}
-
-	
-	
-///////////////////////////////////////////////////////////////////////////////
-//
-// PUBLIC API
-//
-///////////////////////////////////////////////////////////////////////////////
-	
-
 
 	/**
 	 * GETs data from the base-url.
@@ -398,15 +390,7 @@ public class Firebase {
 		
 		return response;
 	}
-	
-	
-	
-///////////////////////////////////////////////////////////////////////////////
-//
-// PRIVATE API
-//
-///////////////////////////////////////////////////////////////////////////////
-	
+
 	
 	private StringEntity buildEntityFromDataMap(Map<String, Object> dataMap ) throws FirebaseException, JacksonUtilityException {
 		
@@ -600,25 +584,6 @@ public class Firebase {
 		
 		return response;
 	}
-	
-	
-	
-///////////////////////////////////////////////////////////////////////////////
-//
-// INTERNAL CLASSES
-//
-///////////////////////////////////////////////////////////////////////////////
-
-	
-	public enum FirebaseRestMethod {
-		
-		GET,
-		PATCH,
-		PUT,
-		POST,
-		DELETE;
-	}
-	
 }
 
 

@@ -10,14 +10,6 @@ import java.util.Map;
 public class FirebaseResponse {
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(FirebaseResponse.class);
-	
-
-	
-///////////////////////////////////////////////////////////////////////////////
-//
-// PROPERTIES & CONSTRUCTORS
-//
-///////////////////////////////////////////////////////////////////////////////
 
 	private final boolean success;
 	private final int code;
@@ -41,28 +33,20 @@ public class FirebaseResponse {
 		}
 		this.rawBody = rawBody.trim();
 	}
-	
-	
-	
-///////////////////////////////////////////////////////////////////////////////
-//
-// PUBLIC API
-//
-///////////////////////////////////////////////////////////////////////////////
 
-	
+
 	/**
 	 * Returns whether or not the response from the Firebase-client was successful
-	 * 
+	 *
 	 * @return true if response from the Firebase-client was successful
 	 */
 	public boolean getSuccess() {
 		return this.success;
 	}
-	
+
 	/**
 	 * Returns the HTTP status code returned from the Firebase-client
-	 * 
+	 *
 	 * @return an integer representing an HTTP status code
 	 */
 	public int getCode() {

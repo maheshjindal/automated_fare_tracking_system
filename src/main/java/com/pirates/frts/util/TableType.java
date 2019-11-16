@@ -5,6 +5,7 @@ public enum TableType {
     USER("user"),
     CARD_INFORMATION("card_information"),
     LOCATION("location"),
+    USER_PATH_TRACKER("user_path_tracker"),
     TRAVEL_HISTORY("travel_history");
 
     private String tableType;

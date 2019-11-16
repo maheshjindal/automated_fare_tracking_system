@@ -1,19 +1,13 @@
 package com.pirates.frts.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class CardInformation {
     private String userId;
     private String rfId;
     private double cardLimit;
-    private double transactionAmount;
     private double balance;
-
-    public double getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public void setTransactionAmount(double transactionAmount) {
-        this.transactionAmount = transactionAmount;
-    }
 
     public double getBalance() {
         return balance;

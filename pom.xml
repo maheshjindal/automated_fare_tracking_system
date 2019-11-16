@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.pirates</groupId>
 	<artifactId>frts</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>frts</name>
 	<description>Fico Rapid Transition System</description>

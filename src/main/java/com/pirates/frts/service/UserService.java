@@ -1,6 +1,7 @@
 package com.pirates.frts.service;
 
 
+import com.pirates.frts.FRTSConstants;
 import com.pirates.frts.domain.CardInformation;
 import com.pirates.frts.domain.Route;
 import com.pirates.frts.domain.TravelHistory;
@@ -59,7 +60,7 @@ public class UserService {
                 FirebaseResponse routeResponse = crudService.getTable(TableType.ROUTE,userRouteId);
                 Map<String,Object> routeResponseBody = routeResponse.getBody();
                 Route route = objectMapper.readValue(objectMapper.writeValueAsString(routeResponseBody),Route.class);
-                if(route.getFare() <= cardInfo.get(rfId).getBalance()){
+                if(cardInfo.get(rfId).getBalance()-route.getFare() >= Double.parseDouble(FRTSConstants.MIN_CARD_BALANCE)){
                     responseMap.put("isAllowed","true");
                     responseMap.put("routeFare",""+route.getFare());
                     responseMap.put("cardLimit",""+cardInfo.get(rfId).getCardLimit());
