@@ -26,16 +26,7 @@ public class Firebase {
 	protected static final Logger LOGGER = Logger.getRootLogger();
 	
 	public static final String FIREBASE_API_JSON_EXTENSION = ".json";
-	
 
-	
-///////////////////////////////////////////////////////////////////////////////
-//
-// PROPERTIES & CONSTRUCTORS
-//
-///////////////////////////////////////////////////////////////////////////////
-	
-	
 	private final String baseUrl;
 	private String secureToken = null;
 	private List<NameValuePair> query;

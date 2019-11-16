@@ -1,13 +1,15 @@
 package com.pirates.frts.model;
 
-import org.apache.log4j.Logger;
+import com.pirates.frts.service.CrudService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class FirebaseResponse {
-	
-	protected static final Logger LOGGER = Logger.getRootLogger();
+
+	protected static final Logger LOGGER = LoggerFactory.getLogger(FirebaseResponse.class);
 	
 
 	

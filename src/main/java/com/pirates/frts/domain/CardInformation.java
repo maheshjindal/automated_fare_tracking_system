@@ -4,6 +4,8 @@ public class CardInformation {
     private String userId;
     private String rfId;
     private String cardLimit;
+    private double transactionAmount;
+    private double balance;
 
     public double getTransactionAmount() {
         return transactionAmount;
@@ -20,9 +22,6 @@ public class CardInformation {
     public void setBalance(double balance) {
         this.balance = balance;
     }
-
-    private double transactionAmount;
-    private double balance;
 
     public void setUserId(String userId) {
         this.userId = userId;

@@ -1,7 +1,19 @@
 package com.pirates.frts.domain;
 
 public class TravelHistory {
+
     private String routeId;
+    private String userId;
+    private String travelId;
+    private String date;
+
+    public String getTravelId() {
+        return travelId;
+    }
+
+    public void setTravelId(String travelId) {
+        this.travelId = travelId;
+    }
 
     public String getRouteId() {
         return routeId;
@@ -19,6 +31,11 @@ public class TravelHistory {
         this.userId = userId;
     }
 
-    private String userId;
+    public String getDate() {
+        return date;
+    }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

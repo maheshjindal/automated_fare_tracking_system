@@ -3,8 +3,10 @@ package com.pirates.frts.service;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.pirates.frts.error.FirebaseException;
+import com.pirates.frts.model.FirebaseResponse;
 import com.pirates.frts.util.Firebase;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -14,13 +16,18 @@ import java.util.Arrays;
 public class FirebaseService {
 
     private String firebase_baseUrl = "https://frts-63acc.firebaseio.com";
-    protected static final Logger LOGGER = Logger.getRootLogger();
+    protected static final Logger LOGGER = LoggerFactory.getLogger(FirebaseService.class);
 
 
     public Firebase getInstanceforTable(String tableName,String primaryId) throws Exception{
         Firebase firebase = null;
         try {
-            String newUrl = firebase_baseUrl+"/"+tableName+"/"+primaryId;
+
+            String newUrl = firebase_baseUrl+"/"+tableName;
+            if(primaryId != null){
+                newUrl = newUrl+"/"+primaryId;
+
+            }
             firebase = new Firebase(newUrl,generateSecurityToken());
         }catch (FirebaseException e){
             LOGGER.error("Got exception while fetching firebase instance");
