@@ -1,7 +1,7 @@
 package com.pirates.frts.service;
 
 
-import com.pirates.frts.FRTSConstants;
+import com.pirates.frts.util.FRTSConstants;
 import com.pirates.frts.domain.CardInformation;
 import com.pirates.frts.domain.Route;
 import com.pirates.frts.domain.TravelHistory;

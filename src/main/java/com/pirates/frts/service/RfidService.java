@@ -1,6 +1,6 @@
 package com.pirates.frts.service;
 
-import com.pirates.frts.FRTSConstants;
+import com.pirates.frts.util.FRTSConstants;
 import com.pirates.frts.domain.*;
 import com.pirates.frts.error.UserNotRegisteredException;
 import com.pirates.frts.model.FirebaseResponse;

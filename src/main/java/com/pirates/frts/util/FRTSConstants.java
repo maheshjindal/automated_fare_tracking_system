@@ -1,4 +1,4 @@
-package com.pirates.frts;
+package com.pirates.frts.util;
 
 public class FRTSConstants {
     public static final String MIN_CARD_BALANCE="200";
