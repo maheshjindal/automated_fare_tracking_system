@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/rfid")
+@RestController
 public class RfidController {
 
     @Autowired
@@ -26,7 +26,7 @@ public class RfidController {
      *
      * **/
 
-    @PutMapping
+    @PostMapping("/rfid")
     public ResponseEntity<String> tagUserRfid(@RequestBody UserPathTracker userPathTracker){
         try {
             rfidService.tagUserRfid(userPathTracker);
@@ -37,7 +37,7 @@ public class RfidController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/register")
+    @PostMapping("/rfid/register")
     public ResponseEntity<String> registerRfid(@RequestBody CardInformation cardInformation){
         try {
             rfidService.registerCard(cardInformation);

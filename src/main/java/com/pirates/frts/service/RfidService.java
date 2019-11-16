@@ -96,7 +96,9 @@ public class RfidService {
     public void registerCard(CardInformation cardInformation) throws Exception{
         boolean isValidUser = false;
         String userId = cardInformation.getUserId();
-        if(!StringUtils.containsValue(userId)){
+        LOGGER.info("USER ID RECEIVED IS "+ cardInformation.getUserId());
+        if(StringUtils.containsValue(userId)){
+
             FirebaseResponse routeResponse = crudService.getTable(TableType.USER,null);
             Map<String,Object> responseBody = routeResponse.getBody();
             LOGGER.info(responseBody.toString());
@@ -121,10 +123,11 @@ public class RfidService {
                     cardInfo.setBalance(cardInformation.getBalance());
                 }else {
                     LOGGER.warn("Invalid card balance, So using the default card balance");
-                    cardInfo.setCardLimit(Double.parseDouble(FRTSConstants.DEFAULT_CARD_BALANCE));
+                    cardInfo.setBalance(Double.parseDouble(FRTSConstants.DEFAULT_CARD_BALANCE));
                 }
                 String rfid = UUID.randomUUID().toString();
                 cardInfo.setRfId(rfid);
+                cardInfo.setUserId(cardInformation.getUserId());
                 crudService.createTable(TableType.CARD_INFORMATION,objectMapper.writeValueAsString(cardInfo),rfid);
             }
 

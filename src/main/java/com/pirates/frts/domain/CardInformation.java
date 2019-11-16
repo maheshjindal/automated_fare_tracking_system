@@ -1,8 +1,8 @@
 package com.pirates.frts.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-@JsonIgnoreProperties
+@JsonAutoDetect
 public class CardInformation {
     private String userId;
     private String rfId;

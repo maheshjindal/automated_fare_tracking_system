@@ -1,9 +1,9 @@
 package com.pirates.frts.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-@JsonIgnoreProperties
+@JsonAutoDetect
 public class UserPathTracker {
     private String sourceLocationId;
     private String destinationLocationId;
