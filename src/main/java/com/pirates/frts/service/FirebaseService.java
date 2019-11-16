@@ -17,10 +17,11 @@ public class FirebaseService {
     protected static final Logger LOGGER = Logger.getRootLogger();
 
 
-    public Firebase getInstanceforTable(String tableName) throws Exception{
+    public Firebase getInstanceforTable(String tableName,String primaryId) throws Exception{
         Firebase firebase = null;
         try {
-            firebase = new Firebase(firebase_baseUrl+"/"+tableName,generateSecurityToken());
+            String newUrl = firebase_baseUrl+"/"+tableName+"/"+primaryId;
+            firebase = new Firebase(newUrl,generateSecurityToken());
         }catch (FirebaseException e){
             LOGGER.error("Got exception while fetching firebase instance");
         }

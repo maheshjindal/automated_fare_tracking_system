@@ -20,10 +20,10 @@ public class CrudService {
     @Autowired
     FirebaseService firebaseService;
 
-    public void createTable(TableType tableType, String jsonDataString){
+    public void createTable(TableType tableType, String jsonDataString,String primaryId){
         Firebase firebase = null;
         try{
-            firebase = firebaseService.getInstanceforTable(tableType.getName());
+            firebase = firebaseService.getInstanceforTable(tableType.getName(),primaryId);
         }catch (Exception e){
 
         }
@@ -31,10 +31,34 @@ public class CrudService {
             FirebaseResponse response = null;
             try{
                 response = firebase.put(jsonDataString);
+
             }catch (FirebaseException | UnsupportedEncodingException e){
                 LOGGER.error("Got Firebase/UnsupportedEncodingException", e);
             }
             LOGGER.info(response);
+            System.out.println(response);
         }
+    }
+
+    public FirebaseResponse getTable(TableType tableType,String primaryId){
+        Firebase firebase = null;
+        try{
+            firebase = firebaseService.getInstanceforTable(tableType.getName(),primaryId);
+        }catch (Exception e){
+
+        }
+        if(firebase != null){
+            FirebaseResponse response = null;
+            try{
+                response = firebase.get();
+
+            }catch (FirebaseException | UnsupportedEncodingException e){
+                LOGGER.error("Got Firebase/UnsupportedEncodingException", e);
+            }
+            LOGGER.info(response);
+            System.out.println(response);
+            return response;
+        }
+        return null;
     }
 }
