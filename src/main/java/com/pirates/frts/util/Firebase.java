@@ -3,7 +3,6 @@ package com.pirates.frts.util;
 import com.pirates.frts.error.FirebaseException;
 import com.pirates.frts.error.JacksonUtilityException;
 import com.pirates.frts.model.FirebaseResponse;
-import com.pirates.frts.service.FirebaseService;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;

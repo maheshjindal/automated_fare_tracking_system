@@ -23,7 +23,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ *
+ * This controller is responsible for accessing/providing all the details from the database and for executing the custom
+ * queries
+ * **/
 @RestController
 public class TravelController {
 
@@ -81,7 +85,7 @@ public class TravelController {
             userService.createTableByJson(TableType.TRAVEL_HISTORY,objectMapper.writeValueAsString(request),request.getTravelId());
             userService.updateCardBalance(request.getUserId(),Double.parseDouble(response.get("routeFare")));
         }else{
-
+            LOGGER.warn("Not a valid travel history");
         }
         return new ResponseEntity<String>(HttpStatus.OK);
     }

@@ -12,6 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/***
+ * This controller provides the rest interface for communicating with rfid server.Using any IOT device, we can directly hit this endpoints
+ * which will track the things automatically and update the status,and send the text message as the updates
+ *
+ * **/
 @RestController
 public class RfidController {
 
