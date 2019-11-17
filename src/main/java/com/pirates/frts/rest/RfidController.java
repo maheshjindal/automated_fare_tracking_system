@@ -31,7 +31,7 @@ public class RfidController {
         try {
             rfidService.tagUserRfid(userPathTracker);
         }catch (Exception ex){
-            LOGGER.error("Unable to presently tag the user id");
+            LOGGER.error("Unable to presently tag the user id",ex);
             return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
         }
         return new ResponseEntity<>(HttpStatus.OK);

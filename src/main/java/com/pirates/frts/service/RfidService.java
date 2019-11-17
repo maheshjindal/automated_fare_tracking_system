@@ -6,6 +6,7 @@ import com.pirates.frts.error.UserNotRegisteredException;
 import com.pirates.frts.model.FirebaseResponse;
 import com.pirates.frts.util.StringUtils;
 import com.pirates.frts.util.TableType;
+import com.pirates.frts.util.TwilioUtil;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class RfidService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
+    private TwilioUtil twilioUtil = new TwilioUtil();
     protected static final Logger LOGGER = LoggerFactory.getLogger(RfidService.class);
 
 
@@ -55,11 +57,18 @@ public class RfidService {
                                     routeInfo.get(routeId).getDestinationOriginId().equalsIgnoreCase(info.getDestinationLocationId())
                             ){
                                 LOGGER.info("Found route id for the route, now will check the fare");
-                                double routeFare = routeInfo.get(routeId).getFare();
                                 history.setRouteId(routeId);
                                 history.setUserId(userPathTracker.getUserId());
                                 history.setDate(new Date().toString());
-                        }
+                                history.setTravelId(UUID.randomUUID().toString());
+                                crudService.createTable(TableType.TRAVEL_HISTORY,objectMapper.writeValueAsString(history),history.getTravelId());
+                                String msg = "Your journey successfully completed to "+ userPathTracker.getDestinationLocationId()+" by "+userPathTracker.getServiceType()+"service";
+                                FirebaseResponse userResponse = crudService.getTable(TableType.USER,userPathTracker.getUserId());
+                                if(userResponse.getBody() != null){
+                                    User user = objectMapper.readValue(objectMapper.writeValueAsString(userResponse.getBody()),User.class);
+                                    new TwilioUtil().sendMessage(user.getPhone(),TwilioUtil.FROM_PHONE,msg);
+                                }
+                            }
                     }
 
                 }
@@ -85,6 +94,13 @@ public class RfidService {
                     userTracker.setRfId(userPathTracker.getRfId());
                     userTracker.setUserId(userPathTracker.getUserId());
                     crudService.createTable(TableType.USER_PATH_TRACKER,objectMapper.writeValueAsString(userTracker),userTracker.getRfId());
+                    String msg = "Your journey successfully started from "+ userPathTracker.getSourceLocationId()+" by "+userPathTracker.getServiceType()+"service";
+                    FirebaseResponse userResponse = crudService.getTable(TableType.USER,userPathTracker.getUserId());
+                    if(userResponse.getBody() != null){
+                        User user = objectMapper.readValue(objectMapper.writeValueAsString(userResponse.getBody()),User.class);
+                        new TwilioUtil().sendMessage(user.getPhone(),TwilioUtil.FROM_PHONE,msg);
+                    }
+
                 }
             }
         }else{
