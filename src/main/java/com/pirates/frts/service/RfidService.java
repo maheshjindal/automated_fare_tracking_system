@@ -53,8 +53,8 @@ public class RfidService {
                     Map<String,Route> routeInfo = objectMapper.readValue(objectMapper.writeValueAsString(responseBody),new TypeReference<Map<String,Route>>(){});
 
                     for (String routeId:routeInfo.keySet()) {
-                            if(routeInfo.get(routeId).getOriginLocationId().equalsIgnoreCase(info.getSourceLocationId())&&
-                                    routeInfo.get(routeId).getDestinationOriginId().equalsIgnoreCase(info.getDestinationLocationId())
+                            if(routeInfo.get(routeId).getOriginId().equalsIgnoreCase(info.getSourceLocationId())&&
+                                    routeInfo.get(routeId).getDestinationId().equalsIgnoreCase(info.getDestinationLocationId())
                             ){
                                 LOGGER.info("Found route id for the route, now will check the fare");
                                 history.setRouteId(routeId);
@@ -81,7 +81,7 @@ public class RfidService {
                 FirebaseResponse response = crudService.getTable(TableType.CARD_INFORMATION,userPathTracker.getRfId());
                 if(response.getBody() != null){
                     CardInformation info = objectMapper.readValue(objectMapper.writeValueAsString(response.getBody()),CardInformation.class);
-                    if(StringUtils.containsValue(info.getUserId()) && info.getBalance() >= Double.parseDouble(FRTSConstants.MIN_CARD_BALANCE)){
+                    if(StringUtils.containsValue(info.getUserId()) && info.getBalance() >= FRTSConstants.MIN_CARD_BALANCE){
                        isUserValid=true;
 
                     }
@@ -128,18 +128,18 @@ public class RfidService {
             }
             if(isValidUser){
                 CardInformation cardInfo = new CardInformation();
-                if(cardInformation.getCardLimit() >= Double.parseDouble(FRTSConstants.MIN_DEFAULT_CARD_LIMIT)){
+                if(cardInformation.getCardLimit() >= FRTSConstants.MIN_DEFAULT_CARD_LIMIT){
                     cardInfo.setCardLimit(cardInformation.getCardLimit());
                 }else {
                     LOGGER.warn("Invalid card limit, So using the default card limit");
-                    cardInfo.setCardLimit(Double.parseDouble(FRTSConstants.DEFAULT_CARD_LIMIT));
+                    cardInfo.setCardLimit(FRTSConstants.DEFAULT_CARD_LIMIT);
                 }
-                if(cardInformation.getBalance() >= Double.parseDouble(FRTSConstants.MIN_CARD_BALANCE) &&
-                cardInformation.getBalance() <= Double.parseDouble(FRTSConstants.CARD_MAX_LIMIT)){
+                if(cardInformation.getBalance() >= FRTSConstants.MIN_CARD_BALANCE &&
+                cardInformation.getBalance() <= FRTSConstants.CARD_MAX_LIMIT){
                     cardInfo.setBalance(cardInformation.getBalance());
                 }else {
                     LOGGER.warn("Invalid card balance, So using the default card balance");
-                    cardInfo.setBalance(Double.parseDouble(FRTSConstants.DEFAULT_CARD_BALANCE));
+                    cardInfo.setBalance(FRTSConstants.DEFAULT_CARD_BALANCE);
                 }
                 String rfid = UUID.randomUUID().toString();
                 cardInfo.setRfId(rfid);

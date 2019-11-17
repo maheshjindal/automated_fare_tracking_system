@@ -14,14 +14,14 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 public class CardInformation {
     private String userId;
     private String rfId;
-    private double cardLimit;
-    private double balance;
+    private float cardLimit;
+    private float balance;
 
-    public double getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
@@ -33,7 +33,7 @@ public class CardInformation {
         this.rfId = rfId;
     }
 
-    public void setCardLimit(double cardLimit) {
+    public void setCardLimit(float cardLimit) {
         this.cardLimit = cardLimit;
     }
 
@@ -45,7 +45,7 @@ public class CardInformation {
         return rfId;
     }
 
-    public double getCardLimit() {
+    public float getCardLimit() {
         return cardLimit;
     }
 }

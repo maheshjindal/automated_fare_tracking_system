@@ -80,7 +80,7 @@ public class Firebase {
 	
 	/**
 	 * GETs data from the provided-path relative to the base-url.
-	 * 
+	 * ddasds
 	 * @param path -- if null/empty, refers to the base-url
 	 * @return {@link FirebaseResponse}
 	 * @throws UnsupportedEncodingException

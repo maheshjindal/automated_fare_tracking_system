@@ -10,9 +10,16 @@ import org.slf4j.LoggerFactory;
 
 
 public class TwilioUtil {
+
+    //Use the twilio account SID
     public static final String ACCOUNT_SID = "";
+
+    //Use the twilio oauth token
     public static final String AUTH_TOKEN = "";
+
+    //Use the contact number registered with twilio account
     public static final String FROM_PHONE="";
+
     protected static final Logger LOGGER = LoggerFactory.getLogger(TwilioUtil.class);
 
     public String sendMessage(String toPhone,String fromPhone,String textmessage) {
