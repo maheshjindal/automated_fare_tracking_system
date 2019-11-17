@@ -21,6 +21,11 @@ public class CrudService {
     @Autowired
     FirebaseService firebaseService;
 
+    /***
+     *
+     * To create a new table at the firebase location
+     *
+     * **/
     public void createTable(TableType tableType, String jsonDataString,String primaryId){
         Firebase firebase = null;
         try{
@@ -41,6 +46,10 @@ public class CrudService {
         }
     }
 
+    /***
+     * To fetch data of some specific table
+     *
+     * **/
     public FirebaseResponse getTable(TableType tableType,String primaryId){
         Firebase firebase = null;
         try{
@@ -63,6 +72,11 @@ public class CrudService {
         return null;
     }
 
+    /***
+     *
+     * To update the data of some existing table
+     *
+     * ***/
     public FirebaseResponse updateTable(TableType tableType,String jsonDataString,String primaryId){
         Firebase firebase = null;
         try{
@@ -85,6 +99,12 @@ public class CrudService {
         return null;
     }
 
+
+    /****
+     *
+     * To delete some specific table
+     *
+     * **/
     public FirebaseResponse deleteTable(TableType tableType,String primaryId){
         Firebase firebase = null;
         try{

@@ -1,5 +1,13 @@
 package com.pirates.frts.domain;
 
+/**
+ * Contains all the user details
+ * name : describes name of the person
+ * email: describes email of the person
+ * phone: describes the phone number of the person
+ * address: describes the address of the person
+ *
+ * **/
 public class User {
     private String userId;
     private String name;

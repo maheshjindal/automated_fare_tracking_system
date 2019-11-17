@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 import java.io.FileInputStream;
 import java.util.Arrays;
 
+
 @Service
 public class FirebaseService {
-
 
     @Autowired
     Environment env;
@@ -26,31 +26,38 @@ public class FirebaseService {
     private String firebase_baseUrl;
     protected static final Logger LOGGER = LoggerFactory.getLogger(FirebaseService.class);
 
-    public Firebase getInstanceforTable(String tableName,String primaryId) throws Exception{
+
+    public Firebase getInstanceforTable(String tableName, String primaryId) throws Exception {
         Firebase firebase = null;
         this.firebase_baseUrl = env.getProperty("firebase.base.url");
         try {
 
-            String newUrl = firebase_baseUrl+"/"+tableName;
-            if(primaryId != null){
-                newUrl = newUrl+"/"+primaryId;
+            String newUrl = firebase_baseUrl + "/" + tableName;
+            if (primaryId != null) {
+                newUrl = newUrl + "/" + primaryId;
 
             }
-            firebase = new Firebase(newUrl,generateSecurityToken());
-        }catch (FirebaseException e){
+            firebase = new Firebase(newUrl, generateSecurityToken());
+        } catch (FirebaseException e) {
             LOGGER.error("Got exception while fetching firebase instance");
         }
         return firebase;
     }
-    private String generateSecurityToken() throws Exception{
+
+
+    /****
+     *
+     * To generate Security Token for firebase communication
+     * **/
+    private String generateSecurityToken() throws Exception {
 
         GoogleCredential scoped;
 
         try {
-            String sdkKeyPath = env.getProperty("api.base.path")+"/frts/src/main/resources/static/frts-63acc-firebase-adminsdk-x16ek-ef89532dd2.json";
+            String sdkKeyPath = env.getProperty("api.base.path") + "/frts/src/main/resources/static/frts-63acc-firebase-adminsdk-x16ek-ef89532dd2.json";
             FileInputStream serviceAccount = new FileInputStream(sdkKeyPath);
             GoogleCredential googleCred = GoogleCredential.fromStream(serviceAccount);
-             scoped = googleCred.createScoped(
+            scoped = googleCred.createScoped(
                     Arrays.asList(
                             "https://www.googleapis.com/auth/firebase.database",
                             "https://www.googleapis.com/auth/userinfo.email"
@@ -58,10 +65,10 @@ public class FirebaseService {
             );
             scoped.refreshToken();
             return scoped.getAccessToken();
-        }catch (Exception e){
-            LOGGER.error("Unable to fetch the access token for firebase",e);
+        } catch (Exception e) {
+            LOGGER.error("Unable to fetch the access token for firebase", e);
         }
-    return null;
+        return null;
     }
 
 }

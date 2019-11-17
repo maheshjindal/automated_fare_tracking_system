@@ -1,5 +1,11 @@
 package com.pirates.frts.domain;
+/*
 
+* readerId represents the unique id corresponding to the unique machine installed at each station
+* locationName represents the name of bus/metro station
+* locationId represents the unique id corresponding to a particular location
+**
+* **/
 public class Location {
     private String readerId;
     private String locationName;

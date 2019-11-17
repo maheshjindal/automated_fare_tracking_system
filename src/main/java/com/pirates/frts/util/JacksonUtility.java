@@ -12,9 +12,8 @@ import java.util.Map;
 
 public class JacksonUtility {
 
-	protected static final Logger 			LOGGER 					= Logger.getRootLogger();
-	
-	
+	protected static final Logger LOGGER = Logger.getRootLogger();
+
 	
 	/**
 	 * Creates a json-string representing the data provided by the map.

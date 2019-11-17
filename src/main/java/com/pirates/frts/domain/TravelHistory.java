@@ -1,5 +1,13 @@
 package com.pirates.frts.domain;
 
+/***
+ * Maps the particular user with a particular route
+ * routeId: represents the same unique id used to define a particular route
+ * userId: represents the same unique id used to define a particular user
+ * travelId: represents the unique id to uniquely identify particular travel entry
+ * date: represents the date of travel
+ *
+ * **/
 public class TravelHistory {
 
     private String routeId;

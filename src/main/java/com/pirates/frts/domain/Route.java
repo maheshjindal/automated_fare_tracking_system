@@ -1,5 +1,16 @@
 package com.pirates.frts.domain;
 
+/***
+ * Contains required information about bus/train route
+ * originId: represents the same location id for the origin
+ * destinationId: represents the location id for the destination
+ * distance : represents the distance between origin and destination
+ * fare: represents the cost of travel
+ * routeid: represents the unique route id corresponding to particular route
+ * serviceType: refers to the type of service user is getting (can be either bus/metro service)
+ *
+ * ****/
+
 public class Route {
     private String originId;
     private String destinationId;

@@ -2,7 +2,9 @@ package com.pirates.frts.error;
 
 import org.apache.log4j.Logger;
 
-
+/**
+ * Used to throw any firebase exception
+ * */
 public class FirebaseException extends Throwable {
 
 	protected static final Logger LOGGER = Logger.getRootLogger();

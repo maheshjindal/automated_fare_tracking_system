@@ -3,6 +3,15 @@ package com.pirates.frts.domain;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+/****
+ * An entity used to track the path while a particular user is travelling
+ * sourceLocationId: represents the same location id used to uniquely identify the source
+ * destinationLocationId : represents the same location id to uniquely identify the destination
+ * inTime : represents the time user tagged in the rfid
+ * outTime: represents the time user tagged out the rfid
+ * userid: is the same user id used to uniquely identify the user
+ * ***/
+
 @JsonAutoDetect
 public class UserPathTracker {
     private String sourceLocationId;
