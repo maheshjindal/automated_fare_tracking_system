@@ -17,3 +17,7 @@ This repository contains the backend server code for automated fare and expense 
 2. Setup the Google analytics and firebase properties in the following application configuration files: `src/main/resources/frts-63acc-firebase-adminsdk-x16ek-ef89532dd2.json` and `src/main/resources/application.properties`.
 3. After setting the properties, run the following command to build the project: `mvn clean package`.
 4. After building the project, run the following command to run the server: `java -jar ./target/<built-jar-name>.war`.
+
+## Author
+- [@maheshjindal](https://www.github.com/maheshjindal)
+
